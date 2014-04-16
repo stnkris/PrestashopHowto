@@ -1,4 +1,3 @@
-
 ## Upgrades
   
 Prestashop supports modules upgrading. This article doesn't
@@ -28,15 +27,28 @@ your module, and when it sees a newer version it checks your
 module for files that are named like this:
 
 ```
-upgrades/abc-2.0.php
-upgrades/database-1.2.php
-upgrades/zztop-1.1.php
+upgrade/abc-2.0.php
+upgrade/database-1.2.php
+upgrade/zztop-1.1.php
 ```
 
 The first part (abc, database, zztop) is not terribly important,
 but the second part is used in the `version_compare()` and is
 important. Upgrade scripts are ran in the order based on their
 version.
+
+Within your upgrade script you must define a function:
+
+```
+function upgrade_module_2_0($module) {
+  return true;
+}
+```
+
+* $module is an instance of your class that extends `Module` that
+  has already been created.
+
+* Not returning true will cause the upgrade to fail
 
 ## Install and Upgrade Scripts
 
